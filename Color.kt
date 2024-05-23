@@ -1,0 +1,41 @@
+package com.jrrzx.emergencyhelper.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+
+val Purple40 = Color(0xFF6650a4)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)
+
+
+val MainColor255= Color(246, 135, 18,255)
+val MainColor200= Color(246, 135, 18,255)
+val MainColor180= Color(246, 135, 18,255)
+val MainColor160= Color(246, 135, 18,255)
+val MainColor140= Color(246, 135, 18,255)
+val MainColor120= Color(246, 135, 18,255)
+val MainColor100= Color(246, 135, 18,255)
+val MainColor80= Color(246, 135, 18,80)
+val MainColor60= Color(246, 135, 18,80)
+val MainColor40= Color(246, 135, 18,80)
+val MainColor20= Color(246, 135, 18,80)
+val White255= Color(255,255,255)
+val White200= Color(255,255,255,200)
+val White160= Color(255,255,255,160)
+val White120= Color(255,255,255,160)
+val White80= Color(255,255,255,80)
+val Black255= Color(0,0,0)
+val Black180= Color(0,0,0,180)
+val Black160= Color(0,0,0,160)
+val Black120= Color(0,0,0,120)
+val Black80= Color(0,0,0,80)
+val Black20= Color(0,0,0,20)
+val E0E0E0255= Color(224, 224, 224,225)
+val EDEDED255= Color(237, 237, 237,225)
+val Gray255= Color(241, 242, 246)
+val Red255= Color(255, 45, 85)
+val Orange255= Color(255, 159, 10)
+val Yellow255= Color(255, 252, 103,255)

@@ -1,0 +1,21 @@
+//要实现一个组件在另一个组件完全消失后才出现的动画效果，可以使用 AnimatedContent 代替 AnimatedVisibility。AnimatedContent 允许在内容变化时进行交叉淡入淡出动画
+                    AnimatedContent(
+                        targetState = lifeIconState.state.value,
+                        transitionSpec = {
+                            fadeIn(animationSpec = tween(500)) togetherWith fadeOut(animationSpec = tween(500))
+                        }
+                    ) { targetState ->
+                        if (targetState) {
+                            LoadGif(
+                                R.drawable.life,
+                                modifier = Modifier.size(48.dp)
+                            )
+                        } else {
+                            LoadGif(
+                                R.drawable.nolife,
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .padding(8.dp, 10.dp)
+                            )
+                        }
+                    }

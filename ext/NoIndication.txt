@@ -1,0 +1,24 @@
+//去默认点击阴影
+object NoIndication: Indication {
+    private object NoIndicationInstance: IndicationInstance {
+        override fun ContentDrawScope.drawIndication() {
+            drawContent()
+        }
+    }
+    @Composable
+    override fun rememberUpdatedInstance(interactionSource: InteractionSource): IndicationInstance {
+        return NoIndicationInstance
+    }
+}
+
+
+		
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = {
+            CompositionLocalProvider(LocalIndication provides NoIndication) {
+                content()
+            }
+        }
+    )
