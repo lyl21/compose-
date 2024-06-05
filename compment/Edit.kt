@@ -96,6 +96,12 @@ fun Edit_Wrap(
                         }
                         etv.value = etv.value.dropLast(1)
                     }
+ 		else if (it.second.value.startsWith(".")) {
+                    withContext(Dispatchers.Main) {
+                        showToast("不能以.开始")
+                    }
+                    it.second.value = it.second.value.drop(1)
+                }
 //                    if (etv.value == "0.0" || etv.value == "0") {
 //                        withContext(Dispatchers.Main) {
 //                            showToast("The input content must be greater than 0")
