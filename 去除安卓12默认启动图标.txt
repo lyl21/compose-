@@ -1,1 +1,15 @@
-        <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="Theme.Dwhj" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+
+
+    <style name="Theme.BoardLayoutCC.blcc" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#000</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.BoardLayoutCC</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+    <style name="Theme.BoardLayoutCC" parent="android:Theme.Material.Light.NoActionBar" />

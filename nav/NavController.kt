@@ -1,100 +1,66 @@
-package com.jrrzx.emergencyhelper.nav
+package com.mhtyuk.pionan.nav
 
-import android.os.Build
+import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.navigation.NavDestination
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.*
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHost
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.navArgument
-import com.jrrzx.emergencyhelper.helper.MediaItemInfo
-import com.jrrzx.emergencyhelper.mNavController
-import com.jrrzx.emergencyhelper.page.AboutUSPage
-import com.jrrzx.emergencyhelper.page.HomePage
-import com.jrrzx.emergencyhelper.page.MessageDetailPage
-import com.jrrzx.emergencyhelper.page.MessagePage
-import com.jrrzx.emergencyhelper.page.P1Page
-import com.jrrzx.emergencyhelper.page.P2Page
-import com.jrrzx.emergencyhelper.page.P3Page
-import com.jrrzx.emergencyhelper.page.P4Page
-import com.jrrzx.emergencyhelper.page.P5Page
-import com.jrrzx.emergencyhelper.page.P6Page
-import com.jrrzx.emergencyhelper.page.SettingPage
-import com.jrrzx.emergencyhelper.page.SuggestionPage
+import androidx.navigation.compose.rememberNavController
+import com.mhtyuk.pionan.*
+import com.mhtyuk.pionan.nav.*
+import com.sanzes.dwhj.*
 
+
+val LocalNavController = staticCompositionLocalOf<NavHostController> {
+    error("No NavController  provided!")
+}
 
 @Composable
-fun NavRouter() {
-    NavHost(navController = mNavController, startDestination = PagesRouter.home) {
-        composable(route = PagesRouter.setting) {
-            SettingPage()
-        }
-        composable(route = PagesRouter.suggestion) {
-            SuggestionPage()
-        }
-        composable(route = PagesRouter.about) {
-            AboutUSPage()
-        }
-        composable(
-            route = PagesRouter.message
-        ) {
-            MessagePage()
-        }
-        composable(
-            route = PagesRouter.messageDetail
-        ) {
-            MessageDetailPage()
-        }
-        composable(
-            route = PagesRouter.home
-        ) {
-            HomePage()
-        }
-
-        composable(
-            route = PagesRouter.p1
-        ) {
-            P1Page()
-        }
-        composable(
-            route = PagesRouter.p2
-        ) {
-            P2Page()
-        }
-        composable(
-            route = PagesRouter.p3
-        ) {
-            P3Page()
-        }
-        composable(
-            route = PagesRouter.p4
-        ) {
-            P4Page()
-        }
-        composable(
-            route = PagesRouter.p5
-        ) {
-            P5Page()
-        }
-        composable(
-            route = PagesRouter.p6
-        ) {
-            P6Page()
-        }
+fun NavController() {
+    val navController = rememberNavController()
+    CompositionLocalProvider(LocalNavController provides navController) {
+        NavRouter(navController)
     }
+}
 
+@Composable
+fun NavRouter(nav: NavHostController) {
+    val current = LocalContext.current
+    NavHost(navController = nav, startDestination =  PagesRouter.home.name) {
+        composable(route = PagesRouter.home.name) {
+            StocksPage(
+
+            )
+        }
+        composable(route = PagesRouter.my.name) {
+            MorePage(
+
+            )
+        }
+
+    }
 
 }
 
 
-fun bottomBarNavigateTo(route: String) {
-    mNavController.navigate(route) {
-        popUpTo(mNavController.graph.findStartDestination().id) {
+//a->b   从栈中弹出a
+fun NavController.clearAWhenAToB(bRoute: String, aRoute: String) {
+    navigate(bRoute) {
+        popUpTo(aRoute) {
+            inclusive = true
+        }
+    }
+}
+
+fun NavController.bottomBarNavigateTo(route: PagesRouter) {
+    navigate(route.name) {
+        popUpTo(graph.findStartDestination().id) {
             saveState = true
             inclusive = true
         }
@@ -103,9 +69,21 @@ fun bottomBarNavigateTo(route: String) {
     }
 }
 
+fun NavController.clearBackStackAndNavigate(destination: String) {
+    // 清空路由栈
+    while (currentBackStackEntry?.destination?.route != destination) {
+        popBackStack()
+    }
+    // 导航到新目的地
+    navigate(destination) {
+        // 为避免重复添加相同的条目
+        launchSingleTop = true
+    }
+}
+
 
 @Composable
-fun currentPageInfo(): NavDestination? {
-    val navBackStackEntry by mNavController.currentBackStackEntryAsState()
+fun currentPageInfo(mNav: NavHostController): NavDestination? {
+    val navBackStackEntry by mNav.currentBackStackEntryAsState()
     return navBackStackEntry?.destination
 }
